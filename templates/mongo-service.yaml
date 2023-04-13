@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+  namespace: {{ .Values.namespace }}
 spec:
-  selector:
-    app: mongodb
   ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
-
+  - name: mongo
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    kubevirt.io/domain: mongodb-vm
