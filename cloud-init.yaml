@@ -4,8 +4,9 @@ users:
   - name: neo
     plain_text_passwd: 'neo'
     lock_passwd: false
-    groups: users, admin
-    sudo: ALL=(ALL) NOPASSWD:ALL
+  - name: fedora
+    lock_passwd: false
+    plain_text_passwd: 'neo'
 package_upgrade: true
 packages:
   - mongodb-server
