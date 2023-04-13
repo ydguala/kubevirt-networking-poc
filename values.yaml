@@ -2,7 +2,7 @@ namespace: kubevirt-networking-poc-ns
 
 app:
   image:
-    repository: https://console-openshift-console.apps.sandbox-m2.ll9k.p1.openshiftapps.com/k8s/ns/dmorales-dev/imagestreamtags/kubevirt-networking-poc
+    repository: image-registry.openshift-image-registry.svc:5000/kubevirt-networking-poc/kubevirt-networking-poc
     tag: latest
   service:
     type: LoadBalancer
