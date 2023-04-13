@@ -73,6 +73,7 @@ spec:
                     [Install]
                     WantedBy=multi-user.target
               packages:
+                - platform-python
                 - mongodb-org
               runcmd:
                 - systemctl daemon-reload
