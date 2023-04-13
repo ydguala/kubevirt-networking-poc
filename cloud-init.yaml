@@ -1,4 +1,9 @@
 #cloud-config
+users:
+  - name: neo
+    lock_passwd: false
+    passwd: 832627b4f6
+    ssh_pwauth: true
 package_upgrade: true
 packages:
   - mongodb-server
