@@ -1,0 +1,40 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: mongodb-vm
+  namespace: {{ .Values.namespace }}
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: mongodb-vm
+    spec:
+      domain:
+        devices:
+          disks:
+            - name: containerdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+              model: virtio
+        resources:
+          requests:
+            memory: 2Gi
+            cpu: 1
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: containerdisk
+          containerDisk:
+            image: "{{ .Values.vm.imageName }}:{{ .Values.vm.imageTag }}"
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: {{ .Values.vm.cloudInitData }}
+

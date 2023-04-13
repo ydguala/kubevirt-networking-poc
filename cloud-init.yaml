@@ -1,0 +1,28 @@
+#cloud-config
+package_upgrade: true
+packages:
+  - mongodb
+write_files:
+  - path: /etc/mongod.conf
+    content: |
+      storage:
+        dbPath: /var/lib/mongo
+        journal:
+          enabled: true
+      systemLog:
+        destination: file
+        logAppend: true
+        path: /var/log/mongodb/mongod.log
+      net:
+        port: 27017
+        bindIp: 0.0.0.0
+  - path: /root/init-mongo.js
+    content: |
+      db = new Mongo().getDB("demo");
+      db.names.insert({name: "John Doe"});
+runcmd:
+  - systemctl enable mongod
+  - systemctl start mongod
+  - sleep 10
+  - mongo < /root/init-mongo.js
+
