@@ -42,13 +42,11 @@ spec:
             userData: |
               #cloud-config
               package_upgrade: true
-
               packages:
                 - epel-release
                 - mongodb-server
                 - mongodb
                 - mongodb-tools
-
               write_files:
                 - path: /etc/yum.repos.d/mongodb.repo
                   content: |
@@ -58,13 +56,13 @@ spec:
                     gpgcheck=1
                     enabled=0
                     gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
-
               runcmd:
-                - dnf -y --enablerepo=mongodb-org-4.4 install mongodb-org
+                - dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+                - dnf install -y mongodb-org
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
-                - "mongo --eval 'db.names.insert({\"name\": \"John Doe\"})' demo"
+                - mongo --eval 'db.names.insert({"name": "John Doe"})' demo
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
