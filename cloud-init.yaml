@@ -1,9 +1,11 @@
 #cloud-config
 users:
+  - default
   - name: neo
     lock_passwd: false
     plain_text_passwd: neo
-    ssh_pwauth: true
+    groups: users, admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
 package_upgrade: true
 packages:
   - mongodb-server
