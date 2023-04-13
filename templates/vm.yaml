@@ -45,14 +45,17 @@ spec:
                 - name: neo
                   passwd: c2cc277bcc10888ecee90f0f09ee9666199c2699922efb41ea7e88067b2c075f3dd3fbf3cfe9d0ec6173668dd83c111342f91e941a2cadc46a3a814848aa9b05
                   lock_passwd: false
-                - name: fedora
-                  passwd: c2cc277bcc10888ecee90f0f09ee9666199c2699922efb41ea7e88067b2c075f3dd3fbf3cfe9d0ec6173668dd83c111342f91e941a2cadc46a3a814848aa9b05
-                  lock_passwd: false
               package_upgrade: true
-              packages:
-                - mongodb-server
               write_files:
-                - path: /etc/systemd/system/mongodb.service
+                - path: /etc/yum.repos.d/mongodb-org.repo
+                  content: |
+                    [mongodb-org-5.0]
+                    name=MongoDB Repository
+                    baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/5.0/x86_64/
+                    gpgcheck=1
+                    enabled=1
+                    gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc
+                - path: /etc/systemd/system/mongod.service
                   content: |
                     [Unit]
                     Description=MongoDB Database Service
@@ -69,11 +72,13 @@ spec:
 
                     [Install]
                     WantedBy=multi-user.target
+              packages:
+                - mongodb-org
               runcmd:
                 - systemctl daemon-reload
-                - systemctl enable --now mongodb.service
+                - systemctl enable --now mongod.service
                 - sleep 10
-                - mongo --eval 'db.names.insert({\"name\": \"John Doe\"})' demo
+                - mongo --eval 'db.names.insert({\"name\": \"John Doe\"})' demo             
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
