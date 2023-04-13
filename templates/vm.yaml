@@ -43,7 +43,7 @@ spec:
               #cloud-config
               users:
                 - name: neo
-                  passwd: c2cc277bcc10888ecee90f0f09ee9666199c2699922efb41ea7e88067b2c075f3dd3fbf3cfe9d0ec6173668dd83c111342f91e941a2cadc46a3a814848aa9b05
+                  plain_text_passwd: 'neo'
                   lock_passwd: false
               package_upgrade: true
               write_files:
