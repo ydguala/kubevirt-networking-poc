@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kubevirt-networking-poc
+  name: kubevirt-networking-poc-helm
   namespace: {{ .Values.namespace }}
 spec:
   replicas: 1
