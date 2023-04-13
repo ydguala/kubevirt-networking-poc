@@ -74,9 +74,11 @@ spec:
                     [Install]
                     WantedBy=multi-user.target
               packages:
-                - epel-release
                 - mongodb-org
               runcmd:
+                - dnf -y install epel-release
+                - dnf config-manager --set-enabled powertools
+                - dnf makecache
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
