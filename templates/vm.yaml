@@ -42,21 +42,14 @@ spec:
             userData: |
               #cloud-config
               package_upgrade: true
-
-              packages:
-                - epel-release
-                - mongodb-server
-                - mongodb
-                - mongodb-tools
-
               write_files:
                 - path: /etc/yum.repos.d/mongodb.repo
                   content: |
                     [mongodb-org-4.4]
                     name=MongoDB Repository
-                    baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
+                    baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/4.4/x86_64/
                     gpgcheck=1
-                    enabled=0
+                    enabled=1
                     gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
                 - path: /root/init-mongo.js
                   content: |
@@ -64,7 +57,7 @@ spec:
                     db.names.insert({name: "John Doe"});
 
               runcmd:
-                - dnf -y --enablerepo=mongodb-org-4.4 install mongodb-org
+                - dnf install mongodb-org
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
