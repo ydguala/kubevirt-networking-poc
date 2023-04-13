@@ -64,7 +64,7 @@ spec:
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
-                - mongo --eval 'db.names.insert({\"name\": \"John Doe\"})' demo
+                - 'mongo --eval '\''db.names.insert({"name": "John Doe"})'\'' demo'
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
