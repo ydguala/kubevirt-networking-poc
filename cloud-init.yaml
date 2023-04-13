@@ -2,7 +2,7 @@
 users:
   - name: neo
     lock_passwd: false
-    passwd: 832627b4f6
+    plain_text_passwd: neo
     ssh_pwauth: true
 package_upgrade: true
 packages:
