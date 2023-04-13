@@ -45,6 +45,8 @@ spec:
                 - name: neo
                   plain_text_passwd: 'neo'
                   lock_passwd: false
+                  groups: users, admin
+                  sudo: ALL=(ALL) NOPASSWD:ALL
               hostname: mongodb-vm
               package_upgrade: true
               write_files:
