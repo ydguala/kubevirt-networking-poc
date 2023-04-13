@@ -16,7 +16,7 @@ vm:
     users:
       - default
       - name: neo
-        plain_text_passwd: neo
+        plain_text_passwd: 'neo'
         lock_passwd: false
         groups: users, admin
         sudo: ALL=(ALL) NOPASSWD:ALL
