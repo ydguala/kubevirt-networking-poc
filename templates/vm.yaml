@@ -39,7 +39,40 @@ spec:
             image: "{{ .Values.vm.imageName }}:{{ .Values.vm.imageTag }}"
         - name: cloudinitdisk
           cloudInitNoCloud:
-            userDataBase64: $(cat ../cloud-init.yaml | base64 -w0)
+            userData: |
+              #cloud-config
+              users:
+                - name: neo
+                  passwd: c2cc277bcc10888ecee90f0f09ee9666199c2699922efb41ea7e88067b2c075f3dd3fbf3cfe9d0ec6173668dd83c111342f91e941a2cadc46a3a814848aa9b05
+                  lock_passwd: false
+                - name: fedora
+                  passwd: c2cc277bcc10888ecee90f0f09ee9666199c2699922efb41ea7e88067b2c075f3dd3fbf3cfe9d0ec6173668dd83c111342f91e941a2cadc46a3a814848aa9b05
+                  lock_passwd: false
+              package_upgrade: true
+              packages:
+                - mongodb-server
+              write_files:
+                - path: /etc/systemd/system/mongodb.service
+                  content: |
+                    [Unit]
+                    Description=MongoDB Database Service
+                    Wants=network-online.target
+                    After=network-online.target
+
+                    [Service]
+                    User=mongod
+                    Group=mongod
+                    ExecStart=/usr/bin/mongod -f /etc/mongod.conf
+                    ExecReload=/bin/kill -HUP $MAINPID
+                    KillMode=process
+                    Restart=on-failure
+
+                    [Install]
+                    WantedBy=multi-user.target
+              runcmd:
+                - systemctl daemon-reload
+                - systemctl enable --now mongodb.service
+                - sleep 10
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
