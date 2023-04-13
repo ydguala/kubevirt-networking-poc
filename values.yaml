@@ -1,4 +1,4 @@
-namespace: kubevirt-networking-poc-ns
+namespace: kubevirt-networking-poc
 
 app:
   image:
