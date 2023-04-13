@@ -32,5 +32,4 @@ runcmd:
   - systemctl daemon-reload
   - systemctl enable --now mongodb.service
   - sleep 10
-  - mongo --eval 'db.names.insert({"name": "John Doe"})' demo
-
+  - mongo --eval 'db.names.insert({\"name\": \"John Doe\"})' demo
