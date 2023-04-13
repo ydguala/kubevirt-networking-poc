@@ -11,38 +11,4 @@ app:
 vm:
   imageName: kubevirt/fedora-cloud-container-disk-demo
   imageTag: v0.36.4
-  cloudInitData: |
-    #cloud-config
-    users:
-      - default
-      - name: neo
-        plain_text_passwd: 'neo'
-        lock_passwd: false
-        groups: users, admin
-        sudo: ALL=(ALL) NOPASSWD:ALL
-    package_upgrade: true
-    packages:
-      - mongodb-server
-    write_files:
-      - path: /etc/systemd/system/mongodb.service
-        content: |
-          [Unit]
-          Description=MongoDB Database Service
-          Wants=network-online.target
-          After=network-online.target
-
-          [Service]
-          User=mongod
-          Group=mongod
-          ExecStart=/usr/bin/mongod -f /etc/mongod.conf
-          ExecReload=/bin/kill -HUP $MAINPID
-          KillMode=process
-          Restart=on-failure
-
-          [Install]
-          WantedBy=multi-user.target
-    runcmd:
-      - systemctl daemon-reload
-      - systemctl enable --now mongodb.service
-      - sleep 10
-      - mongo --eval 'db.names.insert({"name": "John Doe"})' demo
+  cloudInitData: I2Nsb3VkLWNvbmZpZwp1c2VyczoKICAtIGRlZmF1bHQKICAtIG5hbWU6IG5lbwogICAgcGxhaW5fdGV4dF9wYXNzd2Q6ICduZW8nCiAgICBsb2NrX3Bhc3N3ZDogZmFsc2UKICAgIGdyb3VwczogdXNlcnMsIGFkbWluCiAgICBzdWRvOiBBTEw9KEFMTCkgTk9QQVNTV0Q6QUxMCnBhY2thZ2VfdXBncmFkZTogdHJ1ZQpwYWNrYWdlczoKICAtIG1vbmdvZGItc2VydmVyCndyaXRlX2ZpbGVzOgogIC0gcGF0aDogL2V0Yy9zeXN0ZW1kL3N5c3RlbS9tb25nb2RiLnNlcnZpY2UKICAgIGNvbnRlbnQ6IHwKICAgICAgW1VuaXRdCiAgICAgIERlc2NyaXB0aW9uPU1vbmdvREIgRGF0YWJhc2UgU2VydmljZQogICAgICBXYW50cz1uZXR3b3JrLW9ubGluZS50YXJnZXQKICAgICAgQWZ0ZXI9bmV0d29yay1vbmxpbmUudGFyZ2V0CgogICAgICBbU2VydmljZV0KICAgICAgVXNlcj1tb25nb2QKICAgICAgR3JvdXA9bW9uZ29kCiAgICAgIEV4ZWNTdGFydD0vdXNyL2Jpbi9tb25nb2QgLWYgL2V0Yy9tb25nb2QuY29uZgogICAgICBFeGVjUmVsb2FkPS9iaW4va2lsbCAtSFVQICRNQUlOUElECiAgICAgIEtpbGxNb2RlPXByb2Nlc3MKICAgICAgUmVzdGFydD1vbi1mYWlsdXJlCgogICAgICBbSW5zdGFsbF0KICAgICAgV2FudGVkQnk9bXVsdGktdXNlci50YXJnZXQKcnVuY21kOgogIC0gc3lzdGVtY3RsIGRhZW1vbi1yZWxvYWQKICAtIHN5c3RlbWN0bCBlbmFibGUgLS1ub3cgbW9uZ29kYi5zZXJ2aWNlCiAgLSBzbGVlcCAxMAogIC0gbW9uZ28gLS1ldmFsICdkYi5uYW1lcy5pbnNlcnQoeyJuYW1lIjogIkpvaG4gRG9lIn0pJyBkZW1vCgo=%
