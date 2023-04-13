@@ -3,9 +3,9 @@ users:
   - default
   - name: neo
     plain_text_passwd: 'neo'
-    lock_passwd: false
+    lock_passwd: true
   - name: fedora
-    lock_passwd: false
+    lock_passwd: true
     plain_text_passwd: 'neo'
 package_upgrade: true
 packages:
