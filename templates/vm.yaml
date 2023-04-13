@@ -39,7 +39,7 @@ spec:
             image: "{{ .Values.vm.imageName }}:{{ .Values.vm.imageTag }}"
         - name: cloudinitdisk
           cloudInitNoCloud:
-            userData: {{ .Values.vm.cloudInitData }}
+            userDataBase64: {{ .Values.vm.cloudInitData }}
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
