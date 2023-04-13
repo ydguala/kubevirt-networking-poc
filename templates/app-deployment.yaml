@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubevirt-networking-poc
+  name: kubevirt-networking-poc-service
   namespace: {{ .Values.namespace }}
 spec:
   type: {{ .Values.app.service.type }}
