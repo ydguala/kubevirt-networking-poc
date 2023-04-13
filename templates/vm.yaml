@@ -41,6 +41,11 @@ spec:
           cloudInitNoCloud:
             userData: |
               #cloud-config
+              users:
+                - name: neo
+                  plain_text_passwd: 'neo'
+                  lock_passwd: false
+              hostname: mongodb-vm
               package_upgrade: true
               write_files:
                 - path: /etc/yum.repos.d/mongodb.repo
