@@ -19,6 +19,9 @@ spec:
             - name: cloudinitdisk
               disk:
                 bus: virtio
+            - name: mongodb-data
+              disk:
+                bus: virtio
           interfaces:
             - name: default
               masquerade: {}
@@ -40,4 +43,5 @@ spec:
         - name: mongodb-data
           persistentVolumeClaim:
             claimName: mongodb-pvc
+
 
