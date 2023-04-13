@@ -41,45 +41,26 @@ spec:
           cloudInitNoCloud:
             userData: |
               #cloud-config
-              users:
-                - name: neo
-                  plain_text_passwd: 'neo'
-                  lock_passwd: false
-              hostname: mongodb-vm
               package_upgrade: true
+
+              packages:
+                - epel-release
+                - mongodb-server
+                - mongodb
+                - mongodb-tools
+
               write_files:
-                - path: /etc/yum.repos.d/mongodb-org.repo
+                - path: /etc/yum.repos.d/mongodb.repo
                   content: |
                     [mongodb-org-4.4]
                     name=MongoDB Repository
-                    baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/4.4/x86_64/
+                    baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.4/x86_64/
                     gpgcheck=1
-                    enabled=1
+                    enabled=0
                     gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc
-                - path: /etc/systemd/system/mongod.service
-                  content: |
-                    [Unit]
-                    Description=MongoDB Database Service
-                    Wants=network-online.target
-                    After=network-online.target
 
-                    [Service]
-                    User=mongod
-                    Group=mongod
-                    ExecStart=/usr/bin/mongod -f /etc/mongod.conf
-                    ExecReload=/bin/kill -HUP $MAINPID
-                    KillMode=process
-                    Restart=on-failure
-
-                    [Install]
-                    WantedBy=multi-user.target
-              packages:
-                - mongodb-org
               runcmd:
-                - dnf -y install epel-release
-                - dnf -y install python3
-                - dnf config-manager --set-enabled powertools
-                - dnf makecache
+                - dnf -y --enablerepo=mongodb-org-4.4 install mongodb-org
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
