@@ -64,7 +64,7 @@ spec:
                     db.names.insert({name: "John Doe"});
                 - path: /root/adjust_config_mongo.sh
                   content: |
-                    sed -i 's/^bindIp.*/bindIp: 0.0.0.0/' /etc/mongod.conf
+                    sed -i 's/^\( *bindIp *: *\).*/\10.0.0.0/' /etc/mongod.conf
               runcmd:
                 - dnf install -y epel-release
                 - dnf install -y mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos
@@ -73,7 +73,7 @@ spec:
                 - systemctl enable --now mongod.service
                 - sleep 10
                 - chmod +x /root/adjust_config_mongo.sh
-                - ./root/adjust_config_mongo.sh
+                - sh /root/adjust_config_mongo.sh
                 - systemctl restart mongod.service
                 - sleep 10
                 - mongo < /root/init-mongo.js
