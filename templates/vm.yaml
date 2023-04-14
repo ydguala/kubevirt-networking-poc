@@ -66,8 +66,8 @@ spec:
                 - dnf install -y epel-release
                 - dnf install -y mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos
                 - dnf install -y mongodb-org-tools
-              runcmd: 
-                - sed -i 's/^bindIp.*/bindIp: 0.0.0.0/' /etc/mongod.conf     
+              runcmd:
+                - sed -i 's/^bindIp.*/bindIp: 0.0.0.0/' /etc/mongod.conf                
                 - systemctl daemon-reload
                 - systemctl enable --now mongod.service
                 - sleep 10
