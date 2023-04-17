@@ -24,12 +24,12 @@ spec:
   - type: ImageChange
     imageChange:
       automatic: true
-        containerNames:
-          - {{ .Values.namespace }}
-        from:
-          kind: ImageStreamTag
-          name: python:3.9-slim
-          namespace: openshift
+      containerNames:
+        - {{ .Values.namespace }}
+      from:
+        kind: ImageStreamTag
+        name: python:3.9-slim
+        namespace: openshift
   runPolicy: Serial
   nodeSelector: null
   resources: {}
