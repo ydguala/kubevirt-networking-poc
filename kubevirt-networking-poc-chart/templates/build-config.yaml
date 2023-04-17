@@ -4,6 +4,10 @@ metadata:
   name: kubevirt-networking-poc-bc
   namespace: kubevirt-networking-poc
 spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: kubevirt-networking-poc:latest
   source:
     git:
       ref: main
