@@ -16,7 +16,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: kubevirt-networking-poc
+        namespace: openshift
         name: 'python:3.9-slim'
     type: Source
   triggers:
