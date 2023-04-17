@@ -7,14 +7,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kubevirt-networking-poc
+      app: {{ .Values.namespace }}
   template:
     metadata:
       labels:
-        app: kubevirt-networking-poc
+        app: {{ .Values.namespace }}
     spec:
       containers:
-        - name: kubevirt-networking-poc
+        - name: {{ .Values.namespace }}
           image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
           ports:
             - containerPort: 8080
@@ -30,5 +30,5 @@ spec:
     - port: {{ .Values.app.service.port }}
       targetPort: 8080
   selector:
-    app: kubevirt-networking-poc
+    app: {{ .Values.namespace }}
 

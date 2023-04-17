@@ -1,29 +1,35 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: kubevirt-networking-poc-bc
+  name: {{ .Values.namespace }}-bc
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'kubevirt-networking-poc:latest'
+      name: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
   source:
     git:
       uri: https://github.com/david-morales/kubevirt-networking-poc.git
     contextDir: /
     type: Git
   strategy:
-    sourceStrategy:
-      from:
+    from:
         kind: ImageStreamTag
+        name: python:3.9-slim
         namespace: openshift
-        name: 'python:3.9-ubi8'
+      incremental: true
     type: Source
   triggers:
   - type: ConfigChange
   - type: ImageChange
     imageChange:
-      lastTriggeredImageID: ""
+      automatic: true
+        containerNames:
+          - {{ .Values.namespace }}
+        from:
+          kind: ImageStreamTag
+          name: python:3.9-slim
+          namespace: openshift
   runPolicy: Serial
   nodeSelector: null
   resources: {}
