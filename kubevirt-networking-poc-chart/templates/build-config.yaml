@@ -2,30 +2,22 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: kubevirt-networking-poc-bc
+  namespace: kubevirt-networking-poc
 spec:
-  output:
-    to:
-      kind: ImageStreamTag
-      name: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
   source:
     git:
-      uri: https://github.com/david-morales/kubevirt-networking-poc.git
-    contextDir: /
+      ref: main
+      uri: 'https://github.com/david-morales/kubevirt-networking-poc.git'
     type: Git
   strategy:
+    type: Source
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        namespace: openshift
         name: 'python:3.9-ubi8'
-    type: Source
+        namespace: openshift
+      env: []
   triggers:
-  - type: ConfigChange
-  - type: ImageChange
-    imageChange:
-      lastTriggeredImageID: ""
-  runPolicy: Serial
-  nodeSelector: null
-  resources: {}
-  successfulBuildsHistoryLimit: 5
-  failedBuildsHistoryLimit: 5
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
