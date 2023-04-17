@@ -15,7 +15,7 @@ spec:
   strategy:
     from:
         kind: ImageStreamTag
-        name: python:3.9-slim
+        name: 'python:3.9-slim'
         namespace: openshift
       incremental: true
     type: Source
