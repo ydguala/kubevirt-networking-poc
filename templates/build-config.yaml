@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: {{ .Values.namespace }}-bc
+  name: kubevirt-networking-poc-bc
 spec:
   output:
     to:
@@ -13,22 +13,17 @@ spec:
     contextDir: /
     type: Git
   strategy:
-    from:
-      kind: ImageStreamTag
-      name: 'python:3.9-slim'
-      namespace: openshift
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        namespace: openshift
+        name: 'python:3.9-ubi8'
     type: Source
   triggers:
   - type: ConfigChange
   - type: ImageChange
     imageChange:
-      automatic: true
-      containerNames:
-        - {{ .Values.namespace }}
-      from:
-        kind: ImageStreamTag
-        name: python:3.9-slim
-        namespace: openshift
+      lastTriggeredImageID: ""
   runPolicy: Serial
   nodeSelector: null
   resources: {}
