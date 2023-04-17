@@ -1,0 +1,10 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: python
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - name: "python:3.9-ubi8"
+
