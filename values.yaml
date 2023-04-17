@@ -2,7 +2,7 @@ namespace: kubevirt-networking-poc
 
 app:
   image:
-    repository: image-registry.openshift-image-registry.svc:5000/kubevirt-networking-poc/kubevirt-networking-poc
+    repository: default-route-openshift-image-registry.apps.ocp.example.com/kubevirt-networking-poc/kubevirt-networking-poc-is
     tag: latest
   service:
     type: LoadBalancer
