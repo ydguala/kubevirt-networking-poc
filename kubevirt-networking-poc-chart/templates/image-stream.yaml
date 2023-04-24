@@ -1,5 +1,8 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: kubevirt-networking-poc
+  name: {{ .Values.namespace }}
   namespace: {{ .Values.namespace }}
+spec:
+  tags:
+  - name: latest
