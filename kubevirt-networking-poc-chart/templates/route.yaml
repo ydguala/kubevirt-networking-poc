@@ -4,7 +4,6 @@ metadata:
   name: route-kubevirt-networking-poc
   namespace: {{ .Values.namespace }}
 spec:
-  host: "{{ .Values.route.host }}"
   to:
     kind: Service
     name: kubevirt-networking-poc-service

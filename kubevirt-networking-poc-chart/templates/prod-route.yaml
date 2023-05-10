@@ -6,7 +6,6 @@ metadata:
   labels:
     env: production
 spec:
-  host: "{{ .Values.route.prodhost }}"
   to:
     kind: Service
     name: kubevirt-networking-poc-service
