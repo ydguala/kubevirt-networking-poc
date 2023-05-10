@@ -1,12 +1,10 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: production-route-kubevirt-networking-poc
+  name: route-kubevirt-networking-poc
   namespace: {{ .Values.namespace }}
-  labels:
-    env: production
 spec:
-  host: "{{ .Values.route.prodhost }}"
+  host: "{{ .Values.route.host }}"
   to:
     kind: Service
     name: kubevirt-networking-poc-service
