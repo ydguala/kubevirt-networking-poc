@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: production-route-kubevirt-networking-poc
+  namespace: {{ .Values.namespace }}
+  labels:
+    env: production
+spec:
+  host: "{{ .Values.route.host }}"
+  to:
+    kind: Service
+    name: kubevirt-networking-poc-service
+    weight: 100
+  port:
+    targetPort: "{{ .Values.app.service.port }}"
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

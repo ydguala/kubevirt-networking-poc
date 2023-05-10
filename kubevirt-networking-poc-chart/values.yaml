@@ -11,3 +11,6 @@ app:
 vm:
   imageName: kubevirt/fedora-cloud-container-disk-demo
   imageTag: v0.36.4
+
+route:
+  host: kubevirt-networking-poc.neo.example.es
